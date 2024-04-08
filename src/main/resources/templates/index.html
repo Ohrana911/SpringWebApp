@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Energy Drinks</title>
+</head>
+<body>
+
+<div th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+  <h2>Create Energy Drink</h2>
+  <form action="/drinks" method="post">
+    <input type="text" name="name" placeholder="Name">
+    <input type="number" name="volume" placeholder="Volume">
+    <input type="text" name="description" placeholder="Description">
+    <input type="number" name="price" placeholder="Price">
+    <button type="submit">Create</button>
+  </form>
+
+  <h2>Delete Energy Drink</h2>
+  <form action="/drinks" method="post">
+    <input type="hidden" name="_method" value="DELETE">
+    <label for="drink_id">Введите ID напитка для удаления:</label>
+    <input type="text" id="drink_id" name="id">
+    <button type="submit">Удалить</button>
+  </form>
+
+  <h2>Edit Energy Drink</h2>
+  <form action="/drinks" method="post">
+    <input type="hidden" name="_method" value="PUT">
+    <label for="id">ID of the Drink:</label>
+    <input type="text" id="id" name="id" placeholder="Enter ID of the Drink">
+    <br>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" value="Updated Drink Name">
+    <br>
+    <label for="volume">Volume:</label>
+    <input type="text" id="volume" name="volume" value="Updated Drink Volume">
+    <br>
+    <label for="description">Description:</label>
+    <textarea id="description" name="description">Updated Drink Description</textarea>
+    <br>
+    <label for="price">Price:</label>
+    <input type="text" id="price" name="price" value="Updated Drink Price">
+    <br>
+    <button type="submit">Update Drink</button>
+  </form>
+</div>
+
+<h2>Energy Drinks List</h2>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Volume</th>
+    <th>Description</th>
+    <th>Price</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="drink : ${drinks}">
+    <td th:text="${drink.id}"></td>
+    <td th:text="${drink.name}"></td>
+    <td th:text="${drink.volume}"></td>
+    <td th:text="${drink.description}"></td>
+    <td th:text="${drink.price}"></td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
+
+
